@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function LoginScreen({navigation}: {navigation: any}) {
-  const [email, setEmail] = useState('');                 // Estado para guardar o e-mail conforme está sendo escrito
-  const [password, setPassword] = useState('');           // Estado para guardar a senha conforme está sendo escrita
-  const [wrongInput, setWrongInput] = useState(false);    // Estado para guardar a validação dos campos e exibir mensagem de erro
+export default function LoginScreen({ navigation }: { navigation: any }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [wrongInput, setWrongInput] = useState(false);
 
-  /**
-   * Função para lidar com o login após o clique no botão
-   * Idealmente, neste momento seria realizada uma requisição para uma API de autenticação
-   */
   const handleLogin = () => {
-    const validEmail = 'waloch@senacrs.com.br';
-    const validPassword = '123456';
+    const validEmail = 'adm';
+    const validPassword = 'adms';
 
-    // Se os dados forem válidos, passar para a página 'Home' passando como argumento o email
-    // Caso contrário, seta como verdadeiro para exibir o campo de mensagem
     if (email === validEmail && password === validPassword) {
       navigation.navigate('Home', { email });
     } else {
@@ -25,7 +19,8 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      
+      <Text style={styles.subtitle}>faça login na sua conta</Text>
       <TextInput
         style={styles.input}
         placeholder="E-mail"
@@ -39,11 +34,12 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         placeholder="Senha"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry     // ofusca o texto, ideal para senhas
-        onSubmitEditing={handleLogin} // Caso o usuário pressione Enter quando está digitando neste campo, chamamos a função para validar o login
+        secureTextEntry
+        onSubmitEditing={handleLogin}
       />
       {wrongInput && (<Text style={styles.alertText}>E-mail ou senha incorretos!</Text>)}
-      <Button title="Acessar" onPress={handleLogin} />
+      
+      <Button title="Acessar" onPress={handleLogin} color="#6200EE" />
     </View>
   );
 }
@@ -52,23 +48,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 16,
+    padding: 5,
+    backgroundColor: '#F5F5F5',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
+    marginBottom: 8,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: 16,
     marginBottom: 16,
     textAlign: 'center',
+    color: '#666',
   },
   input: {
-    height: 40,
+    
+    height:50,
+     
     borderColor: '#ccc',
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 8,
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
   },
   alertText: {
     color: 'red',
-    marginHorizontal: 'auto',
-    marginBottom: 12
-  }
+    marginVertical: 12,
+    textAlign: 'center',
+  },
+  forgotPasswordContainer: {
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  forgotPasswordText: {
+    color: '#6200EE',
+    fontSize: 14,
+  },
 });
